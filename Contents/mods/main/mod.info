@@ -1,5 +1,5 @@
-name=Game Night - ADDON_NAME
-id=gamenight_ADDON_NAME
+name=Game Night - One-Bullet Game
+id=gamenight_One_Bullet_Game
 description=
 poster=poster.png
 require=gamenight
