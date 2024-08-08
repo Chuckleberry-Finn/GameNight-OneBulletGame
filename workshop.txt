@@ -1,13 +1,15 @@
 version=1
 title=Game Night: One-Bullet Game
 description=[h2]Add-On for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3058279917]GameNight[/url].[/h2]
-description=[h3]A great game you can play with friends or alone.[/h3]
+description=[h3]Actually fires your weapon! Waste your bullets and your self![/h3]
+description=[b]On-Bullet-Game can be played off the table or in your inventory.[/b]
 description=
 description=[url=https://discord.gg/SReMnbV4V7][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/PZmodCommBanner2.png[/img][/url]
 description=
 description=[url=https://github.com/Chuckleberry-Finn/game-night][img]https://raw.githubusercontent.com/Chuckleberry-Finn/game-night/main/images/addOnGuideBanner.png[/img][/url]
 description=
+description=[i]Credit to Aiteron for the initial timed action code and animation XMLs.[/i]
 description=
-description=[h3]Copyright 2024 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account(s) named Chuckleberry Finn.[/h3]
+description=[h3]Remaining work is Copyright 2024 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account(s) named Chuckleberry Finn.[/h3]
 tags=Build 41;Multiplayer;Pop Culture;Silly/Fun
 visibility=public
