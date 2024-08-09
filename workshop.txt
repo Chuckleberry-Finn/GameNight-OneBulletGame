@@ -2,7 +2,19 @@ version=1
 title=Game Night: One-Bullet Game
 description=[h2]Add-On for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3058279917]GameNight[/url].[/h2]
 description=[h3]Actually fires your weapon! Waste your bullets and your self![/h3]
-description=[b]On-Bullet-Game can be played off the table or in your inventory.[/b]
+description=
+description=[h3]Notable Features:[/h3]
+description=[b]Not just RNG, actual simulated chambers, repeated fire comes with more risk. (If you don't re-roll the cylinder.)[/b]
+description=[b]Applies to all guns with the `getWeaponReloadType` of `revolver`.[/b]
+description=[b]Actually uses ammo when fired.[/b]
+description=[b]Animated.[/b]
+description=
+description=
+description=[b]For mod compatability[/b]:
+description=If you are a modder and your guns are not `getWeaponReloadType = revolver` you can also use the following code in /client/:
+description=[code]local OneBulletGame = require "gameNight - implementation OneBulletGame"
+description=OneBulletGame.addGun("module.type")[/code]
+description=
 description=
 description=[url=https://discord.gg/SReMnbV4V7][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/main/PZmodCommBanner2.png[/img][/url]
 description=
