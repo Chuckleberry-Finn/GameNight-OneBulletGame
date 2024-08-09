@@ -1,49 +1,59 @@
 local applyItemDetails = require "gameNight - applyItemDetails"
---local deckActionHandler = applyItemDetails.deckActionHandler
 local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
-
---getMagazineType--
 
 local OneBulletGame = {}
 
+OneBulletGame.guns = {}
+
+function OneBulletGame.registerSpecial(gun, itemFullName)
+    local gunIcon = gun:getTexture()
+    local w = gunIcon and gunIcon:getWidth() or 32
+    local h = gunIcon and gunIcon:getHeight() or 32
+    table.insert(OneBulletGame.guns, itemFullName)
+    gamePieceAndBoardHandler.registerSpecial(itemFullName, { textureSize = {w*4,h*4}, actions = { playOneBulletGame=true, rollCylinder=true }, })
+end
+
+
 function OneBulletGame.setGuns()
-    local allItems = ScriptManager.instance:getAllItems()
-    local guns = {}
+    local allItems = getScriptManager():getAllItems()
+
     for i=0, allItems:size()-1 do
         ---@type Item
         local itemScript = allItems:get(i)
-
         if itemScript:isRanged() and tostring(itemScript:getType()) == "Weapon" then
-
-            print("ONE_BULLET:",itemScript:getFullName(), " : ", itemScript:getType())
-
             local itemFullName = itemScript:getFullName()
             ---@type InventoryItem|HandWeapon
             local gun = InventoryItemFactory.CreateItem(itemFullName)
-            if gun:getWeaponReloadType() == "revolver" then
-
-                local gunIcon = gun:getTexture()
-                local w = gunIcon and gunIcon:getWidth() or 32
-                local h = gunIcon and gunIcon:getHeight() or 32
-
-                table.insert(guns, itemFullName)
-                gamePieceAndBoardHandler.registerSpecial(itemFullName, { textureSize = {w*4,h*4}, actions = { playOneBulletGame=true, rollCylinder=true }, })
+            if gun and gun:getWeaponReloadType() == "revolver" then
+                OneBulletGame.registerSpecial(gun, itemFullName)
             end
         end
     end
 
-    if #guns > 0 then
-        gamePieceAndBoardHandler.registerTypes(guns)
-    end
+    if #OneBulletGame.guns > 0 then gamePieceAndBoardHandler.registerTypes(OneBulletGame.guns) end
 end
 
---[[
+
+function OneBulletGame.addGun(moduleType) table.insert(OneBulletGame.guns, moduleType) end
+
+---EXAMPLE:
+--
+-- local OneBulletGame = require "gameNight - implementation OneBulletGame"
+-- OneBulletGame.addGun("module.type")
+--
+
+
+
 ---@param gamePiece InventoryItem|HandWeapon
 function gamePieceAndBoardHandler.rollCylinder_isValid(gamePiece, player, num)
-    if gamePiece and gamePiece:getWorldItem() then return true end
-    return false
+    ---@type InventoryItem|HandWeapon
+    local gun = gamePiece
+    local dumbass = (gun:getMagazineType() or gun:isRackAfterShoot())
+    if dumbass then return false end
+    --if gun and gun:getWorldItem() then return true end
+    return true
 end
---]]
+
 
 function gamePieceAndBoardHandler.rollCylinder(gamePiece, player, x, y, z)
 

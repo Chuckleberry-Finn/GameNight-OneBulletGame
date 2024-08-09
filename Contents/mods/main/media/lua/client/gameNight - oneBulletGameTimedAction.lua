@@ -9,19 +9,24 @@ function OneBulletGameAnim:update()
 
     ---@type IsoPlayer|IsoGameCharacter|IsoLivingCharacter|IsoObject
     local player = self.character
+    ---@type InventoryItem|HandWeapon
     local gun = self.item
 
     if self:getJobDelta() > self.shotTime and not self.doAction then
         self.doAction = true
 
-        local maxRounds = gun:getMaxAmmo()
-        local currentChamber = gun:getModData()["gameNight_oneBulletGame_nextChamber"]
-        local nextUp = (currentChamber or 0) + 1
-        if nextUp > maxRounds then nextUp = 1 end
-        gun:getModData()["gameNight_oneBulletGame_nextChamber"] = nextUp
-        local ammo = gun:getCurrentAmmoCount() or 0
+        local dumbass = (gun:getMagazineType() or gun:isRackAfterShoot())
 
-        ISReloadWeaponAction.onShoot(player, gun)
+        local maxRounds = gun:getMaxAmmo()
+        local currentChamber = (not dumbass) and gun:getModData()["gameNight_oneBulletGame_nextChamber"] or 1
+
+        if (not dumbass) then
+            local nextUp = (currentChamber or 0) + 1
+            if nextUp > maxRounds then nextUp = 1 end
+            gun:getModData()["gameNight_oneBulletGame_nextChamber"] = nextUp
+        end
+
+        local ammo = gun:getCurrentAmmoCount() or 0
 
         if ammo >= currentChamber then
             player:playSound(gun:getSwingSound())
@@ -29,6 +34,7 @@ function OneBulletGameAnim:update()
             if isClient() then radius = radius / 1.8 end
             player:addWorldSoundUnlessInvisible(radius, gun:getSoundVolume(), false)
             player:startMuzzleFlash()
+            ISReloadWeaponAction.onShoot(player, gun)
             player:Kill(player)
             player:splatBloodFloorBig()
         else
