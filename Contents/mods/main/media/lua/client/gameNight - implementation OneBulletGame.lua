@@ -10,7 +10,9 @@ function OneBulletGame.registerSpecial(gun, itemFullName)
     local w = gunIcon and gunIcon:getWidth() or 32
     local h = gunIcon and gunIcon:getHeight() or 32
     table.insert(OneBulletGame.guns, itemFullName)
-    gamePieceAndBoardHandler.registerSpecial(itemFullName, { textureSize = {w*4,h*4}, actions = { playOneBulletGame=true, rollCylinder=true }, })
+    gamePieceAndBoardHandler.registerSpecial(itemFullName, {
+        ignoreCategory=true, category="Weapon", textureSize = {w*4,h*4}, actions = { playOneBulletGame=true, rollCylinder=true },
+    })
 end
 
 
