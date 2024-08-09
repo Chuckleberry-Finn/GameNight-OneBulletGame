@@ -1,13 +1,15 @@
 version=1
+id=3305459666
 title=Game Night: One-Bullet Game
 description=[h2]Add-On for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3058279917]GameNight[/url].[/h2]
 description=[h3]Actually fires your weapon! Waste your bullets and your self![/h3]
 description=
 description=[h3]Notable Features:[/h3]
-description=[b]Not just RNG, actual simulated chambers, repeated fire comes with more risk. (If you don't re-roll the cylinder.)[/b]
-description=[b]Applies to all guns with the `getWeaponReloadType` of `revolver`.[/b]
-description=[b]Actually uses ammo when fired.[/b]
-description=[b]Animated.[/b]
+description=[b]- Not just RNG, actual simulated chambers.[/b]
+description=[b]- Repeated fire comes with more risk.[/b] (If you don't re-roll the cylinder.)
+description=[b]- Applies to all guns with the `getWeaponReloadType` of `revolver`.[/b]
+description=[b]- Actually uses ammo when fired.[/b]
+description=[b]- Animated.[/b]
 description=
 description=
 description=[b]For mod compatability[/b]:
