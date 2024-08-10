@@ -35,7 +35,9 @@ function OneBulletGameAnim:update()
             player:addWorldSoundUnlessInvisible(radius, gun:getSoundVolume(), false)
             player:startMuzzleFlash()
             ISReloadWeaponAction.onShoot(player, gun)
-            player:Kill(player)
+
+            if (not player:isGodMod()) then player:Kill(player) end
+
             player:splatBloodFloorBig()
         else
             self:forceComplete()
