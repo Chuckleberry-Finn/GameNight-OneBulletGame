@@ -1,6 +1,9 @@
 --- CREDIT TO AITERON
 require "TimedActions/ISBaseTimedAction"
 local OneBulletGameAnim = ISBaseTimedAction:derive("OneBulletGameAnim")
+
+local oneBulletDamage = require "gameNight - oneBulletDamage.lua"
+
 function OneBulletGameAnim:isValid() return true end
 
 function OneBulletGameAnim:update()
@@ -34,15 +37,15 @@ function OneBulletGameAnim:update()
             if isClient() then radius = radius / 1.8 end
             player:addWorldSoundUnlessInvisible(radius, gun:getSoundVolume(), false)
             player:startMuzzleFlash()
-            ISReloadWeaponAction.onShoot(player, gun)
 
-            if (not player:isGodMod()) then player:Kill(player) end
-
-            player:splatBloodFloorBig()
+            if (not player:isGodMod()) then
+                ISReloadWeaponAction.onShoot(player, gun)
+                oneBulletDamage.fromWeapon(gun, player)
+            end
         else
-            self:forceComplete()
             player:playSound(gun:getClickSound())
         end
+        self:forceComplete()
     end
 
     if self:getJobDelta() >= 1 then self:forceComplete() end
@@ -58,7 +61,7 @@ function OneBulletGameAnim:new(character, item)
     o.item = item
 
     o.anim = "OneBulletGame"
-    o.shotTime = 0.35
+    o.shotTime = 0.22
     o.maxTime = 100
 
     return o
