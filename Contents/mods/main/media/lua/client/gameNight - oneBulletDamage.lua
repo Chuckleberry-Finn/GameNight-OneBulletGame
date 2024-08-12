@@ -28,6 +28,8 @@ function oneBulletDamage.fromWeapon(weapon, player)
         player:splatBloodFloorBig()
         player:splatBloodFloorBig()
 
+        bodyDamage:setInfectionLevel(0)
+
         player:Kill(player)
     end
 end
