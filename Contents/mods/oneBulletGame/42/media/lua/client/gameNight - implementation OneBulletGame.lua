@@ -25,7 +25,7 @@ function OneBulletGame.setGuns()
         if itemScript:isRanged() and tostring(itemScript:getType()) == "Weapon" then
             local itemFullName = itemScript:getFullName()
             ---@type InventoryItem|HandWeapon
-            local gun = InventoryItemFactory.CreateItem(itemFullName)
+            local gun = instanceItem(itemFullName)
             if gun and gun:getWeaponReloadType() == "revolver" then
                 OneBulletGame.registerSpecial(gun, itemFullName)
             end
