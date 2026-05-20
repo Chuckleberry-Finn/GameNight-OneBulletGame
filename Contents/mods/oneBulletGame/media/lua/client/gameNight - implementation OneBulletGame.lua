@@ -1,5 +1,5 @@
 local applyItemDetails = require "gameNight - applyItemDetails"
-local gamePieceAndBoardHandler = applyItemDetails.gamePieceAndBoardHandler
+local gamePieceHandler = applyItemDetails.gamePieceHandler
 
 local OneBulletGame = {}
 
@@ -10,7 +10,7 @@ function OneBulletGame.registerSpecial(gun, itemFullName)
     local w = gunIcon and gunIcon:getWidth() or 32
     local h = gunIcon and gunIcon:getHeight() or 32
     table.insert(OneBulletGame.guns, itemFullName)
-    gamePieceAndBoardHandler.registerSpecial(itemFullName, {
+    gamePieceHandler.registerSpecial(itemFullName, {
         ignoreCategory=true, category="Weapon", textureSize = {w*4,h*4}, actions = { playOneBulletGame=true, rollCylinder=true },
     })
 end
@@ -32,7 +32,7 @@ function OneBulletGame.setGuns()
         end
     end
 
-    if #OneBulletGame.guns > 0 then gamePieceAndBoardHandler.registerTypes(OneBulletGame.guns) end
+    if #OneBulletGame.guns > 0 then gamePieceHandler.registerTypes(OneBulletGame.guns) end
 end
 
 
@@ -47,7 +47,7 @@ function OneBulletGame.addGun(moduleType) table.insert(OneBulletGame.guns, modul
 
 
 ---@param gamePiece InventoryItem|HandWeapon
-function gamePieceAndBoardHandler.rollCylinder_isValid(gamePiece, player, num)
+function gamePieceHandler.rollCylinder_isValid(gamePiece, player, num)
     ---@type InventoryItem|HandWeapon
     local gun = gamePiece
     local dumbass = (gun:getMagazineType() or gun:isRackAfterShoot())
@@ -57,19 +57,19 @@ function gamePieceAndBoardHandler.rollCylinder_isValid(gamePiece, player, num)
 end
 
 
-function gamePieceAndBoardHandler.rollCylinder(gamePiece, player, x, y, z)
+function gamePieceHandler.rollCylinder(gamePiece, player, x, y, z)
 
     ---@type InventoryItem|HandWeapon
     local gun = gamePiece
     local maxRounds = gun:getMaxAmmo()
     local nextUp = ZombRand(maxRounds)+1
 
-    gamePieceAndBoardHandler.playSound(gamePiece, player, "rollCylinder")
-    gamePieceAndBoardHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceAndBoardHandler.setModDataValue, gamePiece, "gameNight_oneBulletGame_nextChamber", nextUp}, nil, x, y, z)
+    gamePieceHandler.playSound(gamePiece, player, "rollCylinder")
+    gamePieceHandler.pickupAndPlaceGamePiece(player, gamePiece, {gamePieceHandler.setModDataValue, gamePiece, "gameNight_oneBulletGame_nextChamber", nextUp}, nil, x, y, z)
 end
 
 --[[
-function gamePieceAndBoardHandler.playOneBulletGame_isValid(gamePiece, player, num)
+function gamePieceHandler.playOneBulletGame_isValid(gamePiece, player, num)
     if gamePiece and gamePiece:getWorldItem() then return true end
     return false
 end
@@ -78,8 +78,8 @@ end
 require "TimedActions/ISReloadWeaponAction.lua"
 local oneBulletGameTimedAction = require "gameNight - oneBulletGameTimedAction.lua"
 ---@param player IsoPlayer|IsoGameCharacter|IsoLivingCharacter|IsoObject
-function gamePieceAndBoardHandler.playOneBulletGame(gamePiece, player, x, y, z)
-    gamePieceAndBoardHandler.pickupGamePiece(player, gamePiece, nil, nil)
+function gamePieceHandler.playOneBulletGame(gamePiece, player, x, y, z)
+    gamePieceHandler.pickupGamePiece(player, gamePiece, nil, nil)
 
     ---@type InventoryItem|HandWeapon
     local gun = gamePiece

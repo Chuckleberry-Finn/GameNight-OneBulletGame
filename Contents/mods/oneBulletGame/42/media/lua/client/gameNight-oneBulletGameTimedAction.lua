@@ -2,7 +2,7 @@
 require "TimedActions/ISBaseTimedAction"
 local OneBulletGameAnim = ISBaseTimedAction:derive("OneBulletGameAnim")
 
-local oneBulletDamage = require "gameNight - oneBulletDamage.lua"
+local oneBulletDamage = require("gameNight-oneBulletDamage.lua")
 
 function OneBulletGameAnim:isValid() return true end
 
