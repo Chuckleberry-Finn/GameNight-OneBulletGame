@@ -25,7 +25,7 @@ function OneBulletGame.setGuns()
             local itemFullName = itemScript:getFullName()
             ---@type InventoryItem|HandWeapon
             local gun = instanceItem(itemFullName)
-            if gun and gun:getWeaponReloadType() == "revolver" then
+            if gun and gun:getWeaponReloadType() == WeaponReloadType.REVOLVER then
                 OneBulletGame.registerSpecial(gun, itemFullName)
             end
         end
