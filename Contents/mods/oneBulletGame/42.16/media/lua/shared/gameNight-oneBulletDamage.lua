@@ -4,6 +4,11 @@ local oneBulletDamage = {}
 ---@param weapon HandWeapon
 function oneBulletDamage.fromWeapon(weapon, player)
 
+    if isClient() then
+        sendClientCommand(player, "gameNightOneBullet", "damage", {gun=weapon})
+        return
+    end
+
     local damage = weapon and weapon:getMinDamage() or 0
     if damage <=0 then return end
 
@@ -11,8 +16,11 @@ function oneBulletDamage.fromWeapon(weapon, player)
     local head = BodyPartType.Head
     local BodyPart = bodyDamage:getBodyPart(head)
     local partIndex = BodyPart:getIndex()
+    local stats = player:getStats()
 
     local clothingProtection = player:getBodyPartClothingDefense(partIndex, false, true)
+
+    player:helmetFall(true)
 
     if (ZombRand(100) < clothingProtection) then
         player:addHoleFromZombieAttacks(BloodBodyPartType.FromIndex(partIndex), true)
@@ -28,8 +36,11 @@ function oneBulletDamage.fromWeapon(weapon, player)
         player:splatBloodFloorBig()
         player:splatBloodFloorBig()
 
-        bodyDamage:setInfectionLevel(0)
+        if bodyDamage.setInfectionLevel then bodyDamage:setInfectionLevel(0) end
 
+        stats:set(CharacterStat.ZOMBIE_INFECTION, 0)
+
+        ---player:doDeathSplatterAndSounds(weapon, player, true)
         player:Kill(player)
     end
 end

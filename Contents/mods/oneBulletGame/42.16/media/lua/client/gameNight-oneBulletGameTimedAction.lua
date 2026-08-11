@@ -36,7 +36,10 @@ function OneBulletGameAnim:update()
             local radius = gun:getSoundRadius()
             if isClient() then radius = radius / 1.8 end
             player:addWorldSoundUnlessInvisible(radius, gun:getSoundVolume(), false)
-            player:startMuzzleFlash()
+            if player.startMuzzleFlash then player:startMuzzleFlash() end
+            if EffectsManager then
+                EffectsManager.getInstance().startMuzzleFlash(player, 1)
+            end
 
             if (not player:isGodMod()) then
                 ISReloadWeaponAction.onShoot(player, gun)

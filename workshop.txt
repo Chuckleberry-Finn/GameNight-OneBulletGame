@@ -26,7 +26,7 @@ description=[url=https://github.com/Chuckleberry-Finn/game-night][img]https://ra
 description=
 description=[i]Credit to Aiteron for the initial timed action code and animation XMLs.[/i]
 description=
-description=[url=https://indifferentbroccoli.com/project-zomboid-server-hosting?fpr=chuckleberry][img]https://raw.githubusercontent.com/Chuckleberry-Finn/chuckImages/refs/heads/main/IB_BANNER/IB_BANNER.gif[/img][/url]
+description=[b][i][h1] [/h1][/i][/b]
 description=
 description=
 description=[h3]Remaining work is Copyright 2026 Chuckleberry Finn. This item is not authorized for posting on Steam, except under the Steam account(s) named Chuckleberry Finn.[/h3]
