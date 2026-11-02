@@ -74,16 +74,23 @@ end
 
 require "TimedActions/ISReloadWeaponAction.lua"
 local oneBulletGameTimedAction = require("gameNight-oneBulletGameTimedAction.lua")
+---@param gun InventoryItem|HandWeapon
 ---@param player IsoPlayer|IsoGameCharacter|IsoLivingCharacter|IsoObject
-function gamePieceHandler.playOneBulletGame(gamePiece, player, x, y, z)
-    gamePieceHandler.pickupGamePiece(player, gamePiece, nil, nil)
-
-    ---@type InventoryItem|HandWeapon
-    local gun = gamePiece
+function OneBulletGame.startGame(gun, player)
     if isForceDropHeavyItem(player:getPrimaryHandItem()) then ISTimedActionQueue.add(ISUnequipAction:new(player, player:getPrimaryHandItem(), 10)) end
     local twoHands = gun:isTwoHandWeapon()
     ISTimedActionQueue.add(ISEquipWeaponAction:new(player, gun, 5, true, twoHands))
     ISTimedActionQueue.add(oneBulletGameTimedAction:new(player, gun))
+end
+
+---@param player IsoPlayer|IsoGameCharacter|IsoLivingCharacter|IsoObject
+function gamePieceHandler.playOneBulletGame(gamePiece, player, x, y, z)
+    if isClient() then
+        gamePieceHandler.pickupGamePiece(player, gamePiece, nil, nil, nil, nil, {OneBulletGame.startGame, player})
+        return
+    end
+    gamePieceHandler.pickupGamePiece(player, gamePiece, nil, nil)
+    OneBulletGame.startGame(gamePiece, player)
 end
 
 
